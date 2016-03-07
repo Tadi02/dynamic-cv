@@ -4,7 +4,15 @@
     margin-bottom: 50px;
 }
 
-.main-workplaces, .main-projects{
+.main-workplaces, .main-projects, .tech-content{
     padding-left: 30px;
     margin-bottom: 40px;
+}
+
+.tech-action{
+    margin-top: 30px;
+}
+
+.tech-table{
+    margin-top: 10px;
 }
