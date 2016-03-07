@@ -1,0 +1,10 @@
+.main-profile{
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main-workplaces, .main-projects{
+    padding-left: 30px;
+    margin-bottom: 40px;
+}
