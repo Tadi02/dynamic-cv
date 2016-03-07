@@ -6,7 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Adam Tomko",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tadi02/dynamic-cv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tadi02/dynamic-cv/issues"
+  },
+  "homepage": "https://github.com/Tadi02/dynamic-cv#readme",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.6",
