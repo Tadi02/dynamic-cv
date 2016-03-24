@@ -6,8 +6,7 @@ var checkIfUserIdBelongsToLoggedInUser = require("../middleware/profile/checkIfI
 module.exports = function (app) {
     
     //Private profile page with edit links
-    //TODO SET / references to /editprofile or something
-    app.use('/',
+    app.use('/editprofile',
         ensureUserIsLoggedIn(),
         fetchDataForUser(),
         renderTemplate("profile")
