@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
 
 require('./routes/auth')(app);
 require('./routes/profile')(app);
+require('./routes/activity')(app);
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
