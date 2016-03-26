@@ -8,6 +8,7 @@ var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
 
 module.exports = function (app) {
 
+    //Activities routes only available to authenticated users
     app.use('/activities',
         ensureUserIsLoggedIn()
     );

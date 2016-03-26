@@ -4,31 +4,34 @@ var renderTemplate = require("../middleware/generic/renderTemplate");
 var addTechnology = require("../middleware/tech/addTechnology");
 var removeTechnology = require("../middleware/tech/removeTechnology");
 var updateTechnology = require("../middleware/tech/updateTechnology");
+var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
 
 
 module.exports = function (app) {
 
     //Tech routes only available to authenticated users
-    app.use('/tech',
+    app.use('/technologies',
         ensureUserIsLoggedIn()
     );
 
-    app.use('/tech/list',
+    app.use('/technologies/list',
         fetchTechnologies(),
         renderTemplate("technologies")
     );
 
-    app.use('/tech/:id',
-        updateTechnology()
+    app.use('/technologies/add',
+        addTechnology(),
+        returnJsonResponse()
     );
 
-    app.use('/tech/add',
-        addTechnology()
+    app.post('/technologies/:id',
+        updateTechnology(),
+        returnJsonResponse()
     );
 
-
-    app.use('/tech/remove',
-        removeTechnology()
+    app.delete('/technologies/:id',
+        removeTechnology(),
+        returnJsonResponse()
     );
 
 };
