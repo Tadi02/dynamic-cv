@@ -13,12 +13,18 @@ module.exports = function (app) {
         ensureUserIsLoggedIn()
     );
 
-    app.use('/activities/list',
-        fetchActivities(),
+    //Renders view (data rendered with client side ejs)
+    app.use('/activities/view',
         renderTemplate("activities")
     );
 
-    app.use('/activities/add',
+    //REST CRUD endpoints
+    app.get('/activities/list',
+        fetchActivities(),
+        returnJsonResponse()
+    );
+
+    app.post('/activities/add',
         addActivity(),
         returnJsonResponse()
     );

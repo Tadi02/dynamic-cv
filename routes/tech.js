@@ -14,12 +14,17 @@ module.exports = function (app) {
         ensureUserIsLoggedIn()
     );
 
-    app.use('/technologies/list',
-        fetchTechnologies(),
+    //Renders view (data rendered with client side ejs)
+    app.use('/technologies/view',
         renderTemplate("technologies")
     );
 
-    app.use('/technologies/add',
+    app.get('/technologies/list',
+        fetchTechnologies(),
+        returnJsonResponse()
+    );
+
+    app.post('/technologies/add',
         addTechnology(),
         returnJsonResponse()
     );
