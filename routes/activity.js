@@ -5,6 +5,7 @@ var addActivity = require("../middleware/activity/addActivity");
 var updateActivity = require("../middleware/activity/updateActivity");
 var removeActivity = require("../middleware/activity/removeActivity");
 var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
+var updateTechnologyList = require("../middleware/activity/updateTechnologyList");
 
 module.exports = function (app) {
 
@@ -31,6 +32,7 @@ module.exports = function (app) {
 
     app.post('/activities/:id',
         updateActivity(),
+        updateTechnologyList(),
         returnJsonResponse()
     );
 

@@ -19,6 +19,7 @@ module.exports = function (app) {
         renderTemplate("technologies")
     );
 
+    //REST CRUD endpoints 
     app.get('/technologies/list',
         fetchTechnologies(),
         returnJsonResponse()
