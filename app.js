@@ -8,6 +8,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/ejs'));
 
 app.use('/', function (req, res, next) {
     res.tpl = {};

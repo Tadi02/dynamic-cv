@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') -%>
+
+    <title>Technologies</title>
+    <script>
+        function addTech(){
+            var newTech = {};
+            newTech.name = $('#newTechName').val();
+            $.ajax({
+                url: '/technologies/add',
+                type: 'POST',
+                data: JSON.stringify(newTech)
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function updateTech(){
+            var updatedTech = {};
+            updatedTech.name = $('#editTechName').val();
+            $.ajax({
+                url: '/technologies/' + $('#editId').val(),
+                type: 'POST',
+                data: JSON.stringify(updatedTech)
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function removeTech(id){
+            $.ajax({
+                url: '/technologies/' + id,
+                type: 'DELETE'
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function refreshTable(){
+            $("#techBody").load("/technologies/list", function(){
+                $(".delTech").on('click',function(){
+                    removeTech($(this).parent().parent().attr('id'))
+                });
+                $(".updateTech").on('click',function(){
+                    $('#editTechName').val($(this).parent().parent().children('.techName').html());
+                    $('#editId').val(($(this).parent().parent().attr('id')));
+                });
+            });
+        };
+
+        $(document).ready(function() {
+            refreshTable();
+        });
+    </script>
+</head>
+<body>
+<%- include('menu') -%>
+
+<div class="tech-content">
+    <h2>Edit technologies</h2>
+
+    <div class="tech-action">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newTechModal">New technology</button>
+    </div>
+
+    <div class="tech-table">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Name</th>
+                    <th class="centered">Edit</th>
+                    <th class="centered">Delete</th>
+                    </thead>
+                    <tbody id="techBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="newTechModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New technology</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="newTechName">Name</label>
+                        <input type="text" class="form-control" id="newTechName">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addTech();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editTechModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit technology</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="editTechName">Name</label>
+                        <input type="text" class="form-control" id="editTechName">
+                        <input type="hidden" value="" id="editId">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateTech();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
