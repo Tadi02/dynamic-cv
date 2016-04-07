@@ -9,8 +9,9 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+app.use('/', function (req, res, next) {
+    res.tpl = {};
+    return next();
 });
 
 require('./routes/auth')(app);

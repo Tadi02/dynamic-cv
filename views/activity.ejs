@@ -1,0 +1,10 @@
+<div class="row">
+    <h3 class="col-sm-12"><%= activity.name %> (<%= activity.time %>)
+        <% activity.technologies.forEach(function(tech){ %>
+            <span class="label label-default"><%= tech.name %></span>
+        <% }); %>
+    </h3>
+    <div class="col-sm-12 col-md-7 col-lg-6">
+        <%= activity.description %>
+    </div>
+</div>
