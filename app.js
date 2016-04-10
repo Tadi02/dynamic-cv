@@ -15,6 +15,10 @@ app.use('/', function (req, res, next) {
     return next();
 });
 
+app.get('/', function (req, res) {
+    res.redirect('/login');
+});
+
 require('./routes/auth')(app);
 require('./routes/profile')(app);
 require('./routes/tech')(app);
