@@ -16,7 +16,7 @@ module.exports = function (app) {
     app.use('/register',
         preventReLogin(),
         registerUser(),
-        renderTemplate("registration")
+        renderTemplate("register")
     );
     
     

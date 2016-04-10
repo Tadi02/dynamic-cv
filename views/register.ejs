@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <%- include('head') -%>
 
     <title>Dynamic CV</title>
 </head>
@@ -14,7 +10,7 @@
     <h2>Dynamic CV</h2>
 </div>
 <div class="login-form">
-    <form class="form" action="login.html">
+    <form class="form" action="/login">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="Name">
