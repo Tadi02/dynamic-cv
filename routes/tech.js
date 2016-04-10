@@ -25,6 +25,11 @@ module.exports = function (app) {
         renderTemplate("techTable")
     );
 
+    app.get('/technologies/options',
+        fetchTechnologies(),
+        renderTemplate("techOptions")
+    );
+
     app.post('/technologies/add',
         addTechnology(),
         returnJsonResponse()

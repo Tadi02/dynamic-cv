@@ -5,7 +5,9 @@ var addActivity = require("../middleware/activity/addActivity");
 var updateActivity = require("../middleware/activity/updateActivity");
 var removeActivity = require("../middleware/activity/removeActivity");
 var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
-var updateTechnologyList = require("../middleware/activity/updateTechnologyList");
+var addTechnologyToActivity = require("../middleware/activity/addTechnologyToActivity");
+var removeTechnologyFromActivity = require("../middleware/activity/removeTechnologyFromActivity");
+var fetchTechnologiesForActivity = require("../middleware/tech/fetchTechnologiesForActivity");
 
 module.exports = function (app) {
 
@@ -22,7 +24,7 @@ module.exports = function (app) {
     //REST CRUD endpoints
     app.get('/activities/list',
         fetchActivities(),
-        returnJsonResponse()
+        renderTemplate("activityTable")
     );
 
     app.post('/activities/add',
@@ -32,7 +34,6 @@ module.exports = function (app) {
 
     app.post('/activities/:id',
         updateActivity(),
-        updateTechnologyList(),
         returnJsonResponse()
     );
 
@@ -40,6 +41,20 @@ module.exports = function (app) {
         removeActivity(),
         returnJsonResponse()
     );
-    
+
+    app.get('/activities/tech/:id',
+        fetchTechnologiesForActivity(),
+        renderTemplate("activityTechTable")
+    );
+
+    app.post('/activities/tech/:id/:techId',
+        addTechnologyToActivity(),
+        returnJsonResponse()
+    );
+
+    app.delete('/activities/tech/:id/:techId',
+        removeTechnologyFromActivity(),
+        returnJsonResponse()
+    );
     
 };

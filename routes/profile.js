@@ -2,6 +2,7 @@ var ensureUserIsLoggedIn = require("../middleware/auth/ensureUserIsLoggedIn");
 var fetchDataForUser = require("../middleware/profile/fetchDataForUser");
 var renderTemplate = require("../middleware/generic/renderTemplate");
 var checkIfUserIdBelongsToLoggedInUser = require("../middleware/profile/checkIfIdBelongsToLoggedInUser");
+var fetchActivities = require("../middleware/activity/fetchActivities");
 
 module.exports = function (app) {
     
@@ -9,6 +10,7 @@ module.exports = function (app) {
     app.use('/editprofile',
         ensureUserIsLoggedIn(),
         fetchDataForUser(),
+        fetchActivities(),
         renderTemplate("profile")
     );
 

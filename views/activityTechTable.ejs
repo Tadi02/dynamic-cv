@@ -1,0 +1,6 @@
+<% technologies.forEach(function(tech){ %>
+<tr id="<%= tech.id %>">
+    <td class="techName"><%= tech.name %></td>
+    <td class="centered"><a href="#" class="delTech"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+</tr>
+<% }); %>

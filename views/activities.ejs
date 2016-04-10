@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') -%>
+
+    <title>Activities</title>
+
+    <script>
+        function addActivity(){
+            var newActivity = {};
+            newActivity.name = $('#newActivityName').val();
+            newActivity.type = $('#newActivityType').val();
+            newActivity.time = $('#newActivityTime').val();
+            newActivity.description = $('#newActivityDescription').val();
+            $.ajax({
+                url: '/activities/add',
+                type: 'POST',
+                data: JSON.stringify(newActivity)
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function updateActivity(){
+            var editedActivity = {};
+            editedActivity.name = $('#editActivityName').val();
+            editedActivity.type = $('#editActivityType').val();
+            editedActivity.time = $('#editActivityTime').val();
+            editedActivity.description = $('#editActivityDescription').val();
+            $.ajax({
+                url: '/activities/' + $('#editId').val(),
+                type: 'POST',
+                data: JSON.stringify(editedActivity)
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function removeActivity(id){
+            $.ajax({
+                url: '/activities/' + id,
+                type: 'DELETE'
+            }).done(function(){
+                refreshTable();
+            });
+        };
+
+        function refreshTechListForActivity(id) {
+            $("#addNewTech").load("/technologies/options");
+            $("#currentActivity").val(id);
+            $("#techBody").load("/activities/tech/" + id, function(){
+                $(".delTech").on('click',function(){
+                    removeTechFromActivity(id, $(this).parent().parent().attr('id'))
+                });
+            });
+        };
+
+        function addTechToActivity() {
+            var activityId = $("#currentActivity").val();
+            var techId = $("#addNewTech").val();
+            $.ajax({
+                url: '/activities/tech/' + activityId + "/" + techId,
+                type: 'POST'
+            }).done(function(){
+                refreshTechListForActivity(activityId);
+            });
+        };
+        
+        function removeTechFromActivity(activityId, techId) {
+            $.ajax({
+                url: '/activities/tech/' + activityId + "/" + techId,
+                type: 'DELETE'
+            }).done(function(){
+                refreshTechListForActivity(activityId);
+            });
+        };
+
+        function refreshTable(){
+            $("#activitiesBody").load("/activities/list", function(){
+                $(".delActivity").on('click',function(){
+                    removeActivity($(this).parent().parent().attr('id'))
+                });
+                $(".editActivity").on('click',function(){
+                    $('#editActivityName').val($(this).parent().parent().children('.activityName').html());
+                    $('#editActivityTime').val($(this).parent().parent().children('.activityTime').html());
+                    $('#editActivityDescription').val($(this).parent().parent().children('.activityDescription').html());
+                    $('#editActivityType').val($(this).parent().parent().children('.activityType').html());
+                    $('#editId').val(($(this).parent().parent().attr('id')));
+                });
+                $(".editTech").on('click',function(){
+                    refreshTechListForActivity($(this).parent().parent().attr('id'))
+                });
+            });
+        };
+
+        $(document).ready(function() {
+            refreshTable();
+        });
+    </script>
+
+</head>
+<body>
+<%- include('menu') -%>
+
+<div class="act-content">
+    <h2>Edit activities</h2>
+
+    <div class="act-action">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newActivityModal">New activity</button>
+    </div>
+
+    <div class="act-table">
+        <div class="row">
+            <div class="col-sm-12 col-md-11 col-lg-10">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Time</th>
+                    <th style="max-width: 300px;">Description</th>
+                    <th class="centered">Technologies</th>
+                    <th class="centered">Edit</th>
+                    <th class="centered">Delete</th>
+                    </thead>
+                    <tbody id="activitiesBody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="newActivityModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New activity</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="newActivityName">Name</label>
+                        <input type="text" class="form-control" id="newActivityName">
+                    </div>
+                    <div class="form-group">
+                        <label for="newActivityType">Type</label>
+                        <select class="form-control" id="newActivityType">
+                            <option value="WORKPLACE">Workplace</option>
+                            <option value="PROJECT">Project</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newActivityTime">Time</label>
+                        <input type="text" class="form-control" id="newActivityTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="newActivityDescription">Description</label>
+                        <textarea class="form-control" id="newActivityDescription"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addActivity()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editActivityModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit activity</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="editActivityName">Name</label>
+                        <input type="text" class="form-control" id="editActivityName">
+                    </div>
+                    <div class="form-group">
+                        <label for="editActivityType">Type</label>
+                        <select class="form-control" id="editActivityType">
+                            <option value="WORKPLACE">Workplace</option>
+                            <option value="PROJECT">Project</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editActivityTime">Time</label>
+                        <input type="text" class="form-control" id="editActivityTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="editActivityDescription">Description</label>
+                        <textarea class="form-control" id="editActivityDescription"></textarea>
+                    </div>
+                    <input type="hidden" value="" id="editId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateActivity()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editTechnologiesModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit technologies for activity</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="addNewTech">New</label><br/>
+                        <select type="text" class="form-control" id="addNewTech"></select>
+                        <button class="btn btn-info" onclick="addTechToActivity()">Add</button>
+                    </div>
+                    <input type="hidden" id="currentActivity" value="">
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                    <th>Name</th>
+                    <th class="centered">Remove</th>
+                    </thead>
+                    <tbody id="techBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
