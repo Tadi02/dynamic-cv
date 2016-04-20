@@ -2,6 +2,7 @@ var preventReLogin = require("../middleware/auth/preventReLogin");
 var authenticateUser = require("../middleware/auth/authenticateUser");
 var renderTemplate = require("../middleware/generic/renderTemplate");
 var registerUser = require("../middleware/auth/registerUser");
+var bodyParser = require('body-parser');
 
 module.exports = function (app) {
     
@@ -14,6 +15,7 @@ module.exports = function (app) {
     
     //Registration page
     app.use('/register',
+        bodyParser.urlencoded({ extended: true }),
         preventReLogin(),
         registerUser(),
         renderTemplate("register")
