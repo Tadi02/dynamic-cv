@@ -8,6 +8,7 @@ var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
 var addTechnologyToActivity = require("../middleware/activity/addTechnologyToActivity");
 var removeTechnologyFromActivity = require("../middleware/activity/removeTechnologyFromActivity");
 var fetchTechnologiesForActivity = require("../middleware/tech/fetchTechnologiesForActivity");
+var bodyParser = require('body-parser');
 
 module.exports = function (app) {
 
@@ -28,11 +29,13 @@ module.exports = function (app) {
     );
 
     app.post('/activities/add',
+        bodyParser.json(),
         addActivity(),
         returnJsonResponse()
     );
 
     app.post('/activities/:id',
+        bodyParser.json(),
         updateActivity(),
         returnJsonResponse()
     );
