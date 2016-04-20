@@ -17,6 +17,7 @@
   "homepage": "https://github.com/Tadi02/dynamic-cv#readme",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
