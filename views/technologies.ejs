@@ -15,6 +15,7 @@
                 data: JSON.stringify(newTech)
             }).done(function(){
                 refreshTable();
+                $("#newTechModal").modal("hide");
             });
         };
 
@@ -28,6 +29,7 @@
                 data: JSON.stringify(updatedTech)
             }).done(function(){
                 refreshTable();
+                $("#editTechModal").modal("hide");
             });
         };
 

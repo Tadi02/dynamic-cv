@@ -13,8 +13,7 @@ module.exports = function () {
         var tech = new Technology({name: req.body.name});
         tech.save(function (err) {
            if(err) console.log("Could not save technology.");
+            return next();
         });
-
-        return next();
     }
 };

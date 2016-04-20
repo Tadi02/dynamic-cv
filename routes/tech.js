@@ -38,6 +38,7 @@ module.exports = function (app) {
     );
 
     app.post('/technologies/:id',
+        bodyParser.json(),
         updateTechnology(),
         returnJsonResponse()
     );
