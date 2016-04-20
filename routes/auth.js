@@ -2,6 +2,7 @@ var preventReLogin = require("../middleware/auth/preventReLogin");
 var authenticateUser = require("../middleware/auth/authenticateUser");
 var renderTemplate = require("../middleware/generic/renderTemplate");
 var registerUser = require("../middleware/auth/registerUser");
+var logoutUser = require("../middleware/auth/logout");
 var bodyParser = require('body-parser');
 
 module.exports = function (app) {
@@ -20,6 +21,11 @@ module.exports = function (app) {
         preventReLogin(),
         registerUser(),
         renderTemplate("register")
+    );
+
+    //Logout
+    app.use('/logout',
+        logoutUser()
     );
     
     
