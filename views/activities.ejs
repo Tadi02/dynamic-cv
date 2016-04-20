@@ -15,6 +15,7 @@
             $.ajax({
                 url: '/activities/add',
                 type: 'POST',
+                contentType: 'application/json',
                 data: JSON.stringify(newActivity)
             }).done(function(){
                 refreshTable();
@@ -30,6 +31,7 @@
             $.ajax({
                 url: '/activities/' + $('#editId').val(),
                 type: 'POST',
+                contentType: 'application/json',
                 data: JSON.stringify(editedActivity)
             }).done(function(){
                 refreshTable();

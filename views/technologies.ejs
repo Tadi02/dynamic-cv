@@ -11,6 +11,7 @@
             $.ajax({
                 url: '/technologies/add',
                 type: 'POST',
+                contentType: 'application/json',
                 data: JSON.stringify(newTech)
             }).done(function(){
                 refreshTable();
@@ -23,6 +24,7 @@
             $.ajax({
                 url: '/technologies/' + $('#editId').val(),
                 type: 'POST',
+                contentType: 'application/json',
                 data: JSON.stringify(updatedTech)
             }).done(function(){
                 refreshTable();
