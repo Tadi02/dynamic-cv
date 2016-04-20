@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var app = express();
 
 app.set('view engine', 'ejs');
@@ -9,6 +10,15 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/dist/fonts'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/ejs'));
+
+app.use(session({
+    secret: 'dynamic-cv',
+    cookie: {
+        maxAge: 60000
+    },
+    resave: true,
+    saveUninitialized: false
+}));
 
 app.use('/', function (req, res, next) {
     res.tpl = {};

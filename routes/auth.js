@@ -8,6 +8,7 @@ module.exports = function (app) {
     
     //Login page
     app.use('/login',
+      bodyParser.urlencoded({ extended: true }),
       preventReLogin(),
       authenticateUser(),
       renderTemplate("login")
