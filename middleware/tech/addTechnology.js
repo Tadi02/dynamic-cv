@@ -10,7 +10,7 @@ module.exports = function () {
         }
 
         //Save new tech
-        var tech = new Technology({name: req.body.name});
+        var tech = new Technology({name: req.body.name, user: req.session.user});
         tech.save(function (err) {
            if(err) console.log("Could not save technology.");
             return next();
