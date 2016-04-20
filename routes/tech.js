@@ -5,6 +5,7 @@ var addTechnology = require("../middleware/tech/addTechnology");
 var removeTechnology = require("../middleware/tech/removeTechnology");
 var updateTechnology = require("../middleware/tech/updateTechnology");
 var returnJsonResponse = require("../middleware/generic/returnJsonResponse");
+var bodyParser = require('body-parser');
 
 
 module.exports = function (app) {
@@ -31,6 +32,7 @@ module.exports = function (app) {
     );
 
     app.post('/technologies/add',
+        bodyParser.json(),
         addTechnology(),
         returnJsonResponse()
     );
