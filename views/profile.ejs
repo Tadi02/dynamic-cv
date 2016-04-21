@@ -16,7 +16,9 @@
     <h1><%= username %></h1>
     <img style="width: 200px;" src="/images/profile.png">
 </div>
-
+<% if (!public) { %>
+    <div class="main-public"><h4>Public link</h4><a href="<%=publicLink%>"><%=publicLink%></a></div>
+<% } %>
 <div class="main-workplaces">
     <h2>Workplaces</h2>
     <% activities.forEach(function(activity){ %>
