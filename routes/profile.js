@@ -18,6 +18,7 @@ module.exports = function (app) {
     app.use('/profiles/:id',
         checkIfUserIdBelongsToLoggedInUser(),
         fetchDataForUser(),
+        fetchActivities(),
         renderTemplate("profile")
     );
     

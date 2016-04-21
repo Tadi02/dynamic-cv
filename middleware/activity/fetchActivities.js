@@ -4,7 +4,13 @@ module.exports = function () {
 
     //Fetch activities from db
     return function(req, res, next){
-        Activity.find({user: req.session.user}).populate('technologies').exec(function (err, activities) {
+        var userId = '';
+        if(typeof req.params.id === 'undefined'){
+            userId = req.session.user;
+        }else{
+            userId = req.params.id;
+        }
+        Activity.find({user: userId}).populate('technologies').exec(function (err, activities) {
             if(err) console.log("Could not fetch activities");
             res.tpl.activities = activities;
             return next();
