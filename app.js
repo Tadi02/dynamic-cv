@@ -14,7 +14,7 @@ app.use('/js', express.static(__dirname + '/node_modules/ejs'));
 app.use(session({
     secret: 'dynamic-cv',
     cookie: {
-        maxAge: 60000
+        maxAge: 3600000
     },
     resave: true,
     saveUninitialized: false
