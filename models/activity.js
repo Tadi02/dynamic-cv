@@ -8,10 +8,8 @@ var Activity = db.model('Activity', {
     description: String,
     user: ObjectId,
     technologies: [{
-        _id: {
-            type: ObjectId,
-            ref: 'Technology'
-        }
+        type: ObjectId,
+        ref: 'Technology'
     }]
 });
 
