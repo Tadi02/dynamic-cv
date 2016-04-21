@@ -15,6 +15,12 @@ module.exports = function () {
             userId = req.params.id;
         }
 
+        if(typeof req.session.user === 'undefined'){
+            res.tpl.userPresent = false;
+        }else{
+            res.tpl.userPresent = true;
+        }
+
         User.findOne({'_id': userId }, function (err, user) {
             if (err) console.log('Could not fetch data for user');
             res.tpl.username = user.name;

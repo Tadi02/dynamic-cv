@@ -6,11 +6,15 @@
 </head>
 <body>
 
-<%- include('menu') -%>
+<% if (public) { %>
+    <%- include('publicMenu') -%>
+<% }else{ %>
+    <%- include('menu') -%>
+<% } %>
 
 <div class="main-profile">
     <h1><%= username %></h1>
-    <img style="width: 200px;" src="images/profile.png">
+    <img style="width: 200px;" src="/images/profile.png">
 </div>
 
 <div class="main-workplaces">
