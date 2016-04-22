@@ -8,11 +8,11 @@ module.exports = function () {
         if ((typeof req.body.email === 'undefined') || (typeof req.body.password === 'undefined') ){
             return next();
         }
-
-        //TODO error messages
+        
         User.findOne({'email': req.body.email }, function (err, user) {
             if(err || user == null){
                 console.log("Could not find user.");
+                res.tpl.error = "Not a registered email address";
                 return next();
             }else {
                 bcrypt.compare(req.body.password, user.password, function (err, compareResult) {
@@ -20,6 +20,7 @@ module.exports = function () {
                         req.session.user = user._id;
                         res.redirect('/editprofile');
                     }else{
+                        res.tpl.error ="Wrong password";
                         return next();
                     }
                 });

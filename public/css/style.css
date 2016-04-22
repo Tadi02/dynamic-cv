@@ -31,3 +31,7 @@
     text-align: center;
     width: 250px;
 }
+
+.login-error{
+    margin-top: 15px;
+}

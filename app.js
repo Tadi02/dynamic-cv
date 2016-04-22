@@ -22,6 +22,7 @@ app.use(session({
 
 app.use('/', function (req, res, next) {
     res.tpl = {};
+    res.tpl.error = "";
     return next();
 });
 
