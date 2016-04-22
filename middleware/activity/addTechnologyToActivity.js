@@ -8,17 +8,29 @@ module.exports = function () {
         if ((typeof req.params.id === 'undefined') || (typeof req.params.techId === 'undefined')) {
             return next();
         }
-
-        //TODO check to only add a tech once
+        
         Technology.findById(req.params.techId, function (err, tech) {
             if (err) {
                 console.log("Could not add tech to activity");
                 return next();
             }
 
-            Activity.update({_id: req.params.id}, {$push: {"technologies": tech}}, function (err) {
-                if (err) console.log("Could not add tech to activity");
-                return next();
+            Activity.findById(req.params.id, function (err, activity) {
+                if (err) {
+                    console.log("Could not find activity");
+                    return next();
+                }
+
+                for(var i=0; i < activity.technologies.length; i++){
+                    if(activity.technologies[i] == req.params.techId){
+                        return next();
+                    }
+                }
+
+                Activity.update({_id: req.params.id}, {$push: {"technologies": tech}}, function (err) {
+                    if (err) console.log("Could not add tech to activity");
+                    return next();
+                });
             });
         });
 
