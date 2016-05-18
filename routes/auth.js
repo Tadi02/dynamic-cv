@@ -5,13 +5,19 @@ var registerUser = require("../middleware/auth/registerUser");
 var logoutUser = require("../middleware/auth/logout");
 var bodyParser = require('body-parser');
 
+var userModel = require('../models/user');
+
 module.exports = function (app) {
+
+    var objectRepository = {
+        userModel: userModel
+    };
     
     //Login page
     app.use('/login',
       bodyParser.urlencoded({ extended: true }),
       preventReLogin(),
-      authenticateUser(),
+      authenticateUser(objectRepository),
       renderTemplate("login")
     );
     

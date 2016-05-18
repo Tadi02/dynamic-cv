@@ -1,7 +1,9 @@
-var User = require('../../models/user');
 var bcrypt = require('bcrypt-nodejs');
+var requireOption = require('../generic/common').requireOption;
 
-module.exports = function () {
+module.exports = function (objectrepository) {
+
+    var User = requireOption(objectrepository, 'userModel');
 
     //Authenticate user if user data is present in request. If there is an error add error info to res. If data is valid login the user and redirect to '/editprofile'
     return function (req, res, next) {
