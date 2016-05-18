@@ -13,7 +13,6 @@ describe('preventRelogin middleware ', function () {
             };
 
             preventReloginMW()(req, {}, function () {
-                expect(true).to.eql(true);
                 done();
             });
         });
@@ -35,7 +34,7 @@ describe('preventRelogin middleware ', function () {
 
             preventReloginMW()(req, res, function () {
                 expect(true).to.eql(false);
-                done();done();
+                done();
             });
         });
     });

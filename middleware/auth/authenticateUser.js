@@ -13,7 +13,6 @@ module.exports = function (objectrepository) {
         
         User.findOne({'email': req.body.email }, function (err, user) {
             if(err || user == null){
-                console.log("Could not find user.");
                 res.tpl.error = "Not a registered email address";
                 return next();
             }else {
